@@ -1,8 +1,10 @@
 import React from "react";
 import "./App.css";
+import "antd/dist/antd.css";
+import Output from "./Components/Output";
+import Input from "./Components/Input";
 
 const regex = /^[\w\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,11 +22,9 @@ class App extends React.Component {
   handleFirstNameChange = (e) => {
     this.setState({ firstName: e.target.value });
   };
-
   handleLastNameChange = (e) => {
     this.setState({ lastName: e.target.value });
   };
-
   handleEmailChange = (e) => {
     // this.state.email = e.target.value;
     this.setState({
@@ -32,14 +32,12 @@ class App extends React.Component {
       emailIsValid: regex.test(e.target.value),
     });
   };
-
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
     if (this.state.password.length > 5) {
       this.setState({ passwordIsValid: true });
     }
   };
-
   handleRememberMeChange = () => {
     if (this.state.rememberMe === false) {
       this.setState({ rememberMe: true });
@@ -47,7 +45,6 @@ class App extends React.Component {
       this.setState({ rememberMe: false });
     }
   };
-
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state.emailIsValid);
@@ -64,61 +61,61 @@ class App extends React.Component {
       <>
         <h1 className="text-center">Login</h1>
         {this.state.isSubmitted ? (
-          <div className="text-center">
-            <h1 className="mt-5">Form submitted</h1>
-            <p>First name : {this.state.firstName}</p>
-            <p>Last name : {this.state.lastName}</p>
-            <p>Email address : {this.state.email}</p>
-          </div>
+          <Output
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            email={this.state.email}
+          />
         ) : (
           <form onSubmit={this.handleSubmit}>
             <div className="row justify-content-center">
               <div className="col-6">
-                <label className="form-label mt-2">First name</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="firstName"
+                <Input
+                  labelClassName="form-label mt-2"
+                  inputClassName="form-control"
+                  label="First name"
+                  inputType="text"
+                  inputId="firstName"
                   onChange={this.handleFirstNameChange}
                 />
-                <label className="form-label mt-2">Last name</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="lastName"
+                <Input
+                  labelClassName="form-label mt-2"
+                  inputClassName="form-control"
+                  label="Last name"
+                  inputType="text"
+                  inputId="lastName"
                   onChange={this.handleLastNameChange}
                 />
-                <label className="form-label mt-2">Email address</label>
-                <input
-                  className={`form-control ${
+                <Input
+                  labelClassName="form-label mt-2"
+                  inputClassName={`form-control ${
                     this.state.emailIsValid ? "is-valid" : "is-invalid"
                   }`}
-                  type="email"
-                  id="email"
+                  label="Email"
+                  inputType="email"
+                  inputId="email"
                   onChange={this.handleEmailChange}
                 />
-                <label className="form-label mt-2">Password</label>
-                <input
-                  className={`form-control ${
+                <Input
+                  labelClassName="form-label mt-2"
+                  inputClassName={`form-control ${
                     this.state.passwordIsValid ? "is-valid" : "is-invalid"
                   }`}
-                  type="password"
-                  name="password"
-                  id="password"
+                  label="Password"
+                  inputType="password"
+                  inputId="password"
                   onChange={this.handlePasswordChange}
                 />
-                <div className="form-check mt-2">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="checkbox"
-                    id="checkbox"
-                    onChange={this.handleRememberMeChange}
-                  />
-                  <label className="form-check-label">Remember me</label>
-                </div>
+                <Input
+                  labelClassName="form-check-label"
+                  inputClassName="form-check-input"
+                  label="Remember me"
+                  inputType="checkbox"
+                  inputId="checkbox"
+                  onChange={this.handleRememberMeChange}
+                />
                 <div className="mt-2">
-                  <button className="btn btn-primary" type="submit">
+                  <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
                 </div>
