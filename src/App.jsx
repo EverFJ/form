@@ -33,10 +33,10 @@ class App extends React.Component {
     });
   };
   handlePasswordChange = (e) => {
-    this.setState({ password: e.target.value });
-    if (this.state.password.length > 5) {
-      this.setState({ passwordIsValid: true });
-    }
+    this.setState({
+      password: e.target.value,
+      passwordIsValid: this.state.password.length > 5,
+    });
   };
   handleRememberMeChange = () => {
     if (this.state.rememberMe === false) {
@@ -47,11 +47,7 @@ class App extends React.Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.emailIsValid);
-    if (
-      this.state.emailIsValid === true &&
-      this.state.passwordIsValid === true
-    ) {
+    if (this.state.emailIsValid && this.state.passwordIsValid) {
       this.setState({ isSubmitted: true });
     }
   };
